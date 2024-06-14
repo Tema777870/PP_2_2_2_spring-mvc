@@ -25,12 +25,18 @@ public class CarController {
                        Model model) {
         List<Car> cars = carService.getCars();
         if (count != null) {
-            int coundInt = Integer.parseInt(count);
-            model.addAttribute("cars", carService.getSomeCars(coundInt, cars));
-            return "cars";
-        } else {
-            model.addAttribute("cars", carService.getSomeCars(5, cars));
-            return "cars";
+            int countInt = Integer.parseInt(count);
+            if (countInt <= 0) {
+//                model.addAttribute("cars", carService.getSomeCars(countInt, cars));
+                return "cars";
+            } else if (countInt <= 5) {
+                model.addAttribute("cars", carService.getSomeCars(countInt, cars));
+                return "cars";
+            } else {
+                model.addAttribute("cars", carService.getSomeCars(5, cars));
+                return "cars";
+            }
         }
+        return "cars";
     }
 }
